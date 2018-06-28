@@ -1,5 +1,5 @@
 import * as mongoose from "mongoose";
-import {Document, Model, Schema, ObjectId} from "mongoose";
+import {Document, Model, ObjectId, Schema} from "mongoose";
 import {logger} from "../../utils/logger";
 import {AbstractRemote} from "../remote";
 import {Instance} from "./instanceModel";
@@ -68,7 +68,7 @@ const InstanceSchema: Model<IInstanceDocument> =
 
 export class InstanceRemote implements AbstractRemote<Instance> {
 
-    public fetchAll(params: any = {}): Promise<Array<Instance>> {
+    public fetchAll(params: any = {}): Promise<Instance[]> {
         return InstanceSchema.find(params);
     }
 
@@ -110,7 +110,7 @@ export class InstanceRemote implements AbstractRemote<Instance> {
             .catch(err => logger.error(err));
     }
 
-    public aggregateNumOfVolumesPerInstance(): Promise<Array<any>> {
+    public aggregateNumOfVolumesPerInstance(): Promise<any[]> {
         return InstanceSchema.aggregate([
             { $lookup: {from: 'volumes', localField: 'instanceId',foreignField: 'attachments.instanceId', as: 'data'} },
             { $unwind: '$data'},

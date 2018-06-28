@@ -1,5 +1,5 @@
 import * as mongoose from "mongoose";
-import {Document, Model, Schema, ObjectId} from "mongoose";
+import {Document, Model, ObjectId, Schema} from "mongoose";
 import {logger} from "../../utils/logger";
 import {AbstractRemote} from "../remote";
 import {AvailabilityZone} from "./availabilityZoneModel";
@@ -21,10 +21,10 @@ const AvailabilityZoneSchema: Model<AvailabilityZoneDocument> =
             type: String,
         },
         summary: {
-            numOfInstances: {
+            numOfDBInstances: {
                 type: Number
             },
-            numOfDBInstances: {
+            numOfInstances: {
                 type: Number
             },
             numOfUnattachedVolumes: {
@@ -39,7 +39,7 @@ const AvailabilityZoneSchema: Model<AvailabilityZoneDocument> =
 
 export class AvailabilityZoneRemote implements AbstractRemote<AvailabilityZone> {
 
-    public fetchAll(params: any = {}): Promise<Array<AvailabilityZone>> {
+    public fetchAll(params: any = {}): Promise<AvailabilityZone[]> {
         return AvailabilityZoneSchema.find(params);
     }
 
@@ -81,7 +81,7 @@ export class AvailabilityZoneRemote implements AbstractRemote<AvailabilityZone> 
             .catch(err => logger.error(err));
     }
 
-    public aggregateNumOfInstancePerZone(): Promise<Array<any>> {
+    public aggregateNumOfInstancePerZone(): Promise<any[]> {
         return AvailabilityZoneSchema.aggregate([
             { $lookup: { from: 'instances', localField: 'name', foreignField: 'zoneName', as: 'data'} },
             { $unwind: '$data'},
@@ -93,7 +93,7 @@ export class AvailabilityZoneRemote implements AbstractRemote<AvailabilityZone> 
         }).catch(e => logger.error(e));
     }
 
-    public aggregateNumOfDBInstancePerZone(): Promise<Array<any>> {
+    public aggregateNumOfDBInstancePerZone(): Promise<any[]> {
         return AvailabilityZoneSchema.aggregate([
             { $lookup: { from: 'dbinstances', localField: 'name', foreignField: 'zoneName', as: 'data'} },
             { $unwind: '$data'},
@@ -105,7 +105,7 @@ export class AvailabilityZoneRemote implements AbstractRemote<AvailabilityZone> 
         }).catch(e => logger.error(e));
     }
 
-    public aggregateNumOfUnattachedVolumePerZone(): Promise<Array<any>> {
+    public aggregateNumOfUnattachedVolumePerZone(): Promise<any[]> {
         return AvailabilityZoneSchema.aggregate([
             { $lookup: { from: 'volumes', localField: 'name', foreignField: 'zoneName', as: 'data'} },
             { $unwind: '$data'},

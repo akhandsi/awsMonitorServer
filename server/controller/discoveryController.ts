@@ -1,8 +1,8 @@
-import * as express from 'express';
 import {CronJob} from 'cron';
-import {logger} from '../utils/logger';
-import {DiscoveryService} from '../service/discoveryService';
+import * as express from 'express';
 import {injectable} from 'inversify';
+import {DiscoveryService} from '../service/discoveryService';
+import {logger} from '../utils/logger';
 
 @injectable()
 export class DiscoveryController implements RegistrableController {

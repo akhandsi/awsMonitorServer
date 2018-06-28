@@ -1,5 +1,5 @@
 import * as mongoose from "mongoose";
-import {Document, Model, Schema, ObjectId} from "mongoose";
+import {Document, Model, ObjectId, Schema} from "mongoose";
 import {logger} from "../../utils/logger";
 import {AbstractRemote} from "../remote";
 import {DBInstance} from "./dbInstanceModel";
@@ -38,11 +38,11 @@ const DBInstanceSchema: Model<IDBInstanceDocument> =
             required: true,
             type: String,
         },
-        storageType: {
+        status: {
             required: true,
             type: String,
         },
-        status: {
+        storageType: {
             required: true,
             type: String,
         },
@@ -73,7 +73,7 @@ const DBInstanceSchema: Model<IDBInstanceDocument> =
 
 export class DBInstanceRemote implements AbstractRemote<DBInstance> {
 
-    public fetchAll(params: any = {}): Promise<Array<DBInstance>> {
+    public fetchAll(params: any = {}): Promise<DBInstance[]> {
         return DBInstanceSchema.find(params);
     }
 

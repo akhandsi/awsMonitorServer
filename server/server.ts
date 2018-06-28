@@ -1,11 +1,11 @@
-import * as express from 'express';
 import * as bodyParser from 'body-parser';
-import TYPES from './types';
-import container from './inversify.config';
-import {logger} from './utils/logger';
+import * as express from 'express';
 import {Config} from './config/config';
-import {MongoConnection} from './db/mongoConnection';
 import {IRegistrableController} from './controller/controller';
+import {MongoConnection} from './db/mongoConnection';
+import container from './inversify.config';
+import TYPES from './types';
+import {logger} from './utils/logger';
 
 Config.init();
 MongoConnection.init();
@@ -17,15 +17,15 @@ app.use(bodyParser.json());
 const controllers: RegistrableController[] = container.getAll<IRegistrableController>(TYPES.Controller);
 controllers.forEach(controller => controller.register(app));
 
-app.use(function (err: Error, req: express.Request, res: express.Response, next: express.NextFunction) {
+app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
     logger.error(err.stack);
     next(err);
 });
 
-app.use(function (err: Error, req: express.Request, res: express.Response, next: express.NextFunction) {
+app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
     res.status(500).send('Internal Server Error');
 });
 
-app.listen(3001, function () {
+app.listen(3001,() => {
     logger.info('Example app listening on port 3001!');
 });

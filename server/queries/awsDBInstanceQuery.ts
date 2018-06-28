@@ -1,11 +1,11 @@
 import * as AWS from "aws-sdk";
 
+import {DBInstanceMapper} from '../models/dbInstance/dbInstanceMapper';
+import {DBInstance} from '../models/dbInstance/dbInstanceModel';
 import {IDimensionConfig, IRegionConfig} from "../models/model";
 import {logger} from "../utils/logger";
 import {AWSMetricQuery} from "./awsMetricsQuery";
 import {AbstractAWSQuery} from './awsQuery';
-import {DBInstance} from '../models/dbInstance/dbInstanceModel';
-import {DBInstanceMapper} from '../models/dbInstance/dbInstanceMapper';
 
 export class AWSDBInstanceQuery implements AbstractAWSQuery<DBInstance> {
 

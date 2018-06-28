@@ -2,16 +2,16 @@ import * as AWS from "aws-sdk";
 import {IRegionConfig} from '../models/model';
 import {Region} from '../models/region/regionModel';
 import {AWSAvailabilityZoneQuery} from '../queries/awsAvailabilityZoneQuery';
+import {AWSDBInstanceQuery} from '../queries/awsDBInstanceQuery';
 import {AWSInstanceQuery} from '../queries/awsInstanceQuery';
 import {AWSRegionsQuery} from '../queries/awsRegionsQuery';
 import {AWSVolumeQuery} from '../queries/awsVolumeQuery';
 import {logger} from '../utils/logger';
 import {AggregationService} from './aggregationService';
-import {AWSDBInstanceQuery} from '../queries/awsDBInstanceQuery';
 
 export class DiscoveryService {
 
-    public static async collect(): Promise<Array<Region>> {
+    public static async collect(): Promise<Region[]> {
 
         // init aws-sdk
         AWS.config.setPromisesDependency(null);

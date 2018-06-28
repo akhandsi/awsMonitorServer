@@ -10,8 +10,8 @@ export class AvailabilityZoneMapper extends AbstractMapper<AvailabilityZone> {
         model.regionName = zone.RegionName || '';
         model.state = zone.State || '';
         model.summary = {
-            numOfInstances: 0,
             numOfDBInstances: 0,
+            numOfInstances: 0,
             numOfUnattachedVolumes: 0,
         };
         model.type = 'zone';

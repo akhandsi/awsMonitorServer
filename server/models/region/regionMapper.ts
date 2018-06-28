@@ -8,10 +8,10 @@ export class RegionMapper extends AbstractMapper<Region> {
         const model: Region = new Region();
         model.name = region.RegionName || '';
         model.summary = {
-            numOfZones: 0,
-            numOfInstances: 0,
             numOfDBInstances: 0,
+            numOfInstances: 0,
             numOfUnattachedVolumes: 0,
+            numOfZones: 0,
         };
         model.type = 'region';
         return model;

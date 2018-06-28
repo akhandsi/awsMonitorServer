@@ -17,7 +17,6 @@ export class AWSRegionsQuery implements AbstractAWSQuery<Region> {
 
             const mapper: RegionMapper = new RegionMapper();
             return mapper.toModels((regionsJson.Regions || []));
-            ec2Client.shu
         } catch (e) {
             logger.error(e);
             return [];
