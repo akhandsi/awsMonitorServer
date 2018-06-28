@@ -1,0 +1,8 @@
+{
+  "test": {
+    "MONGODB_URI": "mongodb://localhost:27017/AwsTest"
+  },
+  "development": {
+    "MONGODB_URI": "mongodb://localhost:27017/AwsApp"
+  }
+}
